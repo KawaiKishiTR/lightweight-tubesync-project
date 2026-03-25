@@ -42,6 +42,7 @@ class DownloadManager:
     def download_video(self, video:YoutubeVideo):
         video_data = self.VideoRepo.get_video(video.get_video_id())
         save_path = calc_download_folder(video, Path(os.getenv("DOWNLOAD_FOLDER")))
+        save_path.mkdir(exist_ok=True)
 
         if video_data is not None:
             if video_data.exists():
