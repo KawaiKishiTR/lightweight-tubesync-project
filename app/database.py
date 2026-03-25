@@ -263,6 +263,8 @@ class PlaylistRepo:
 
 def main():
     db = sqlite3DataBaseManager.init_from_env()
+    db.connect_database()
+    db.create_tables()
     v_repo = VideoRepo(db)
     p_repo = PlaylistRepo(db)
 
