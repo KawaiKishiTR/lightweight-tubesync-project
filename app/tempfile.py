@@ -14,7 +14,7 @@ def rmtree(path:Path):
 
 class tempFolder:
     temp_base = Path(__file__).parent.parent / "temp"
-    def __init__(self, path:Path | None):
+    def __init__(self, path:Path | None = None):
         if path is None:
             folder = md5(randbytes(16)).hexdigest()
             path = self.temp_base / folder
