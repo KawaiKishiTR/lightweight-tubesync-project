@@ -7,6 +7,7 @@ from typing import Any
 import hashlib
 import shutil
 import copy
+import os
 
 class VideoNotDownloadedError(Exception):pass
 
@@ -128,7 +129,7 @@ class YoutubeVideo:
         filepath = self.get_info().get("filepath") or self.get_info().get("_filename")
         if filepath is not None:
             return Path(filepath)
-        filepath = calc_download_folder(self)
+        filepath = calc_download_folder(self, Path(os.getenv("DOWNLOAD_FOLDER")))
         if filepath.exists():
             return filepath
         raise VideoNotDownloadedError(f"{self.url} not downloaded")
