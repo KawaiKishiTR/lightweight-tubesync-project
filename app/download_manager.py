@@ -1,5 +1,5 @@
-from .youtubedl import YoutubePlaylist, YoutubeVideo
-from .database import VideoRepo, PlaylistRepo, Video
+from app.youtubedl import YoutubePlaylist, YoutubeVideo
+from app.database import VideoRepo, PlaylistRepo, Video
 from pathlib import Path
 import hashlib
 import os
