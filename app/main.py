@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 
 from app import database, download_manager
-from youtubedl import YoutubePlaylist
+from app.youtubedl import YoutubePlaylist
 
 def main():
     db, v_repo, p_repo = database.main()
