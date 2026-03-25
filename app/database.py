@@ -40,17 +40,17 @@ class sqlite3DataBaseManager:
     
     def execute(self, sql:str, parameters = ()) -> None:
         cursor = self.connection.cursor()
-        cursor.execute(sql=sql, parameters=parameters)
+        cursor.execute(sql, parameters)
         self.connection.commit()
     
     def fetchone(self, sql:str, parameters = ()) -> Any:
         cursor = self.connection.cursor()
-        cursor.execute(sql=sql, parameters=parameters)
+        cursor.execute(sql, parameters)
         return cursor.fetchone()
 
     def fetchall(self, sql:str, parameters = ()) -> list[Any]:
         cursor = self.connection.cursor()
-        cursor.execute(sql=sql, parameters=parameters)
+        cursor.execute(sql, parameters)
         return cursor.fetchall()
 
     def create_tables(self):
