@@ -27,11 +27,11 @@ class tempFolder:
     def create(self, exist_ok:bool = False):
         self.path.mkdir(exist_ok=exist_ok, parents=True)
     
-    def __get__(self, instance:tempFolder, owner):
+    def __get__(self, instance, owner):
         return instance.path
 
     def __exit__(self, exc_type, exc, tb):
         rmtree(self.path)
 
-    def __delete__(self, instance:tempFolder):
+    def __delete__(self, instance):
         rmtree(instance.path)
