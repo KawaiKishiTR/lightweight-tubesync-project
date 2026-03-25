@@ -1,14 +1,8 @@
 from pathlib import Path
 import sys
 
-import database
-import download_manager
+from app import database, download_manager
 from youtubedl import YoutubePlaylist
-
-print(__file__)
-
-link_dir = Path(__file__).parent.parent / "link_dir"
-link_dir.mkdir(exist_ok=True)
 
 def main():
     db, v_repo, p_repo = database.main()
