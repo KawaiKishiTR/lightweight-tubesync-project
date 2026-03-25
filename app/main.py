@@ -14,7 +14,7 @@ def main():
         raise FileNotFoundError(str(file_path))
     
     for playlist_url in file_path.open("r", encoding="utf-8"):
-        DownladM.download(YoutubePlaylist(playlist_url))
+        DownladM.download(YoutubePlaylist(playlist_url.strip()))
 
 
 
