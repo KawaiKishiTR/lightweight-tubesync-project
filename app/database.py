@@ -122,7 +122,7 @@ class Playlist:
     def init_with_data_dict(cls, data:dict):
         return cls(
             id=data["id"],
-            yt_id=data["yt_id"],
+            yt_id=data["playlist_id"],
             url=data["url"]
         )
 
