@@ -1,5 +1,4 @@
 from urllib.parse import urlparse, parse_qs
-from yt_dlp.extractor.common import _InfoDict
 from app.tempfile import tempFolder
 from yt_dlp import YoutubeDL
 from pathlib import Path
@@ -26,17 +25,17 @@ class YoutubePlaylist:
 
     def __init__(self, url:str):
         self.url = url
-        self._info:_InfoDict
+        self._info
 
     def get_url(self) -> str:
         return self.url
 
-    def request_info(self) -> _InfoDict:
+    def request_info(self):
         with YoutubeDL(self.PLAYLIST_PARSER) as ydl:
             self._info = ydl.extract_info(self.url, download=False)
         return self._info
     
-    def get_info(self) -> _InfoDict:
+    def get_info(self):
         if self._info is not None:
             return self._info
         return self.request_info()
@@ -81,7 +80,7 @@ class YoutubeVideo:
 
     def __init__(self, url:str):
         self.url = url
-        self._info:_InfoDict
+        self._info
 
     def request_info(self):
         video_parser = copy.deepcopy(self.VIDEO_PARSER)
