@@ -25,7 +25,7 @@ class YoutubePlaylist:
 
     def __init__(self, url:str):
         self.url = url
-        self._info
+        self._info:dict
 
     def get_url(self) -> str:
         return self.url
@@ -80,7 +80,7 @@ class YoutubeVideo:
 
     def __init__(self, url:str):
         self.url = url
-        self._info
+        self._info:dict
 
     def request_info(self):
         video_parser = copy.deepcopy(self.VIDEO_PARSER)
