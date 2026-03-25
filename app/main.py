@@ -1,10 +1,11 @@
 from pathlib import Path
 import sys
-
+from dotenv import load_dotenv
 from app import database, download_manager
 from app.youtubedl import YoutubePlaylist
 
 def main():
+    load_dotenv()
     db, v_repo, p_repo = database.main()
     DownladM = download_manager.main(v_repo, p_repo)
 

@@ -10,7 +10,7 @@ type playlist_entry = dict
 class sqlite3DataBaseManager:
     @classmethod
     def init_from_env(cls):
-        env_keys = []
+        env_keys = ["DB_NAME"]
         none_keys = []
 
         for key in env_keys:
