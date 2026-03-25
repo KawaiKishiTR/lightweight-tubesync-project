@@ -14,7 +14,7 @@ class VideoNotDownloadedError(Exception):pass
 def get_from_url(url:str, key:str) -> str | None:
     return parse_qs(urlparse(url).query).get(key, [None])[0]
 
-def calc_download_folder(videoObj:"YoutubeVideo" | Video, base_path:Path = None) -> Path:
+def calc_download_folder(videoObj:Video, base_path:Path = None) -> Path:
     if isinstance(videoObj, YoutubeVideo):
         yt_id = videoObj.get_video_id()
     elif isinstance(videoObj, Video):
