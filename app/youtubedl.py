@@ -96,6 +96,7 @@ class YoutubeVideo:
     
     def _download(self, parser):
         with YoutubeDL(parser) as ydl:
+            print(f"[INFO] downloading video: {self.get_url()}")
             return ydl.extract_info(self.get_url(), download=True)
 
     def download(self, save_path:Path) -> Path:
@@ -106,6 +107,7 @@ class YoutubeVideo:
             self._download(video_parser)
 
             shutil.move(self.get_path(), save_path)
+            print(f"[INFO] Video: {self.get_url()} saved to {str(save_path)}")
         return save_path / self.get_path().name
 
     def get_url(self) -> str:

@@ -154,6 +154,7 @@ class VideoRepo:
             VALUES (?, ?)
             ON CONFLICT(yt_id) DO NOTHING            
         """, (yt_id, path))
+        print(f"[INFO] [REPO] [VIDEO] video created {yt_id}")
         return self.get_video(yt_id)
 
     def remove_video(self, video:Video) -> None:
@@ -161,6 +162,8 @@ class VideoRepo:
             DELETE FROM videos
             WHERE yt_id = ?
         """, (video.yt_id,))
+        print(f"[INFO] [REPO] [VIDEO] video removed {video.yt_id}")
+
 
     def remove_video_safe(self, video:Video) -> None:
         """
@@ -189,7 +192,7 @@ class VideoRepo:
             SET path = ?
             WHERE id = ?
         """, (new_path, video.id))
-
+        print(f"[INFO] [REPO] [VIDEO]  {str(video.path)} updated to {str(new_path)}")
         return self.get_video(video.yt_id)
 
 class PlaylistRepo:
@@ -214,6 +217,7 @@ class PlaylistRepo:
             VALUES (?, ?)
             ON CONFLICT(playlist_id) DO NOTHING
         """, (playlist_id, url))
+        print(f"[INFO] [REPO] [PLAYLIST] playlist created {playlist_id}")
         return self.get_playlist(playlist_id)
 
     def get_playlist_videos(self, playlist:Playlist) -> list[Video]:
@@ -250,6 +254,7 @@ class PlaylistRepo:
             INSERT OR IGNORE INTO playlist_videos (playlist_id, video_id)
             VALUES (?, ?)
         """, (playlist.id, video.id))
+        print(f"[INFO] [REPO] [PLAYLIST] video added {video.yt_id} to {playlist.yt_id}")
 
     def remove_video(self, playlist:Playlist, video:Video) -> None:
         if not self.is_have_video(playlist, video):
@@ -259,6 +264,8 @@ class PlaylistRepo:
             DELETE FROM playlist_videos
             WHERE playlist_id = ? AND video_id = ?
         """, (playlist.id, video.id))
+        print(f"[INFO] [REPO] [PLAYLIST] video removed {video.yt_id} from {playlist.yt_id}")
+
 
 
 def main():

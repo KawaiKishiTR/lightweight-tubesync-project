@@ -43,11 +43,13 @@ class DownloadManager:
 
         for video in playlist.iter_videos():
             try:
+                print(f"[INFO] [DOWNLOAD] downloading {video.get_video_id()} from playlist {playlist_data.yt_id}")
                 video_data = self.download_video(video)
             except Exception as e:
                 playlist_video_download_error_massage(playlist.get_url(), video.get_url(), e)
             else:
                 self.PlaylistRepo.add_video(playlist_data, video_data)
+        print(f"[INFO] [DOWNLOAD] playlist download complete: {playlist_data.yt_id}")
 
     def download_video(self, video:YoutubeVideo):
         video_data = self.VideoRepo.get_video(video.get_video_id())
