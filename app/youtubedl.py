@@ -1,8 +1,10 @@
 from urllib.parse import urlparse, parse_qs
 from app.tempfile import tempFolder
+from app.database import Video
 from yt_dlp import YoutubeDL
 from pathlib import Path
 from typing import Any
+import hashlib
 import shutil
 import copy
 
@@ -12,6 +14,16 @@ class VideoNotDownloadedError(Exception):pass
 def get_from_url(url:str, key:str) -> str | None:
     return parse_qs(urlparse(url).query).get(key, [None])[0]
 
+def calc_download_folder(videoObj:YoutubeVideo | Video, base_path:Path = None) -> Path:
+    if isinstance(videoObj, YoutubeVideo):
+        yt_id = videoObj.get_video_id()
+    elif isinstance(videoObj, Video):
+        yt_id = videoObj.yt_id
+    else:
+        raise ValueError(f"Unknown videoObj type: {type(videoObj)} video object must be: {YoutubeVideo} or {Video}")
+    
+    h = hashlib.md5(yt_id.encode()).hexdigest()
+    return base_path / h[0:2] / h[2:4] / h[4:6]
 
 class YoutubePlaylist:
     PLAYLIST_PARSER: dict[str, bool] = {
@@ -114,9 +126,12 @@ class YoutubeVideo:
 
     def get_path(self) -> Path:
         filepath = self.get_info().get("filepath") or self.get_info().get("_filename")
-        if filepath is None:
-            raise VideoNotDownloadedError(f"{self.url} not downloaded")
-        return Path(filepath)
+        if filepath is not None:
+            return Path(filepath)
+        filepath = calc_download_folder(self)
+        if filepath.exists():
+            return filepath
+        raise VideoNotDownloadedError(f"{self.url} not downloaded")
     
     def get_duration(self) -> int:
         return self.get_info().get("duration", 0)

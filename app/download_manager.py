@@ -1,7 +1,6 @@
-from app.youtubedl import YoutubePlaylist, YoutubeVideo
+from app.youtubedl import YoutubePlaylist, YoutubeVideo, calc_download_folder
 from app.database import VideoRepo, PlaylistRepo, Video
 from pathlib import Path
-import hashlib
 import os
 
 def playlist_video_download_error_massage(playlist_url, video_url, err):
@@ -10,17 +9,6 @@ def playlist_video_download_error_massage(playlist_url, video_url, err):
 [ERROR] video:      {video_url}
 actual_error_massage:
     {err}""")
-
-def calc_download_folder(videoObj:YoutubeVideo | Video, base_path:Path = None) -> Path:
-    if isinstance(videoObj, YoutubeVideo):
-        yt_id = videoObj.get_video_id()
-    elif isinstance(videoObj, Video):
-        yt_id = videoObj.yt_id
-    else:
-        raise ValueError(f"Unknown videoObj type: {type(videoObj)} video object must be: {YoutubeVideo} or {Video}")
-    
-    h = hashlib.md5(yt_id.encode()).hexdigest()
-    return base_path / h[0:2] / h[2:4] / h[4:6]
 
 
 class DownloadManager:
