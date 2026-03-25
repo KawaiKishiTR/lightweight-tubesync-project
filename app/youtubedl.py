@@ -67,6 +67,7 @@ class YoutubePlaylist:
 
 class YoutubeVideo:
     VIDEO_PARSER: dict[str, Any] = {
+        "js_runtimes": ["node"],
         "quiet": True,
         "format": "bestaudio[abr<=128]",
         "postprocessors": [

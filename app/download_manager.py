@@ -48,11 +48,11 @@ class DownloadManager:
             if video_data.exists():
                 return video_data
             saved_file = video.download(save_path)
-            return self.VideoRepo.update_path(video, saved_file)
+            return self.VideoRepo.update_path(video, str(saved_file))
             
 
         saved_file = video.download(save_path)
-        return self.VideoRepo.add_video(video.get_video_id(), saved_file)
+        return self.VideoRepo.add_video(video.get_video_id(), str(saved_file))
 
 def main(v_repo:VideoRepo, p_repo:PlaylistRepo):
     DownladM = DownloadManager(
